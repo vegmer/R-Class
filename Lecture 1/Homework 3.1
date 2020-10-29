@@ -1,0 +1,39 @@
+### Homework for Chapter 3: "Understanding R"
+#----------------------------------------------
+
+# Find the function to compute a Pearson Chi-Sq for Count Data,
+# and open the associated documentation for the function.
+# Next run the example for the function and report the df associated
+# with the last example (Case B. Raw data).
+
+# STEP 1.- Find the function to compute a Pearson Chi-Sq test for count data
+
+library()
+# This opens all the available packages. It seems like Chi Sq could be
+# in the package named "Stats", let's see if that's the case.
+
+library(help="stats")
+# chisq.test --> performs chi-squared contingency table tests and goodness-of-fit tests. 
+
+library(stats)
+# That calls on the package "stats"
+
+
+# STEP 2.- Open the documentation for the function
+
+?"chisq.test"
+
+# STEP 3.- Run an example and report df of last example
+example("chisq.test")
+
+chsq.t> ## Case B. Raw data
+chsq.t> x <- trunc(5 * runif(100))
+
+chsq.t> chisq.test(table(x))            # NOT 'chisq.test(x)'!
+
+        Chi-squared test for given probabilities
+
+data:  table(x)
+X-squared = 4.3, df = 4, p-value = 0.3669
+
+# The answer is "df=4"

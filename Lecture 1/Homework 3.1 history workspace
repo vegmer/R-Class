@@ -1,0 +1,147 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: i386-w64-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library()
+> library(help="stats")
+> library(stats)
+> ?"chisq.test"
+starting httpd help server ... done
+> example("chisq.test")
+
+chsq.t> ## From Agresti(2007) p.39
+chsq.t> M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+
+chsq.t> dimnames(M) <- list(gender = c("M","F"),
+chsq.t+                     party = c("Democrat","Independent", "Republican"))
+
+chsq.t> (Xsq <- chisq.test(M))  # Prints test summary
+
+        Pearson's Chi-squared test
+
+data:  M
+X-squared = 30.0701, df = 2, p-value = 2.954e-07
+
+
+chsq.t> Xsq$observed   # observed counts (same as M)
+      party
+gender Democrat Independent Republican
+     M      762         327        468
+     F      484         239        477
+
+chsq.t> Xsq$expected   # expected counts under the null
+      party
+gender Democrat Independent Republican
+     M 703.6714    319.6453   533.6834
+     F 542.3286    246.3547   411.3166
+
+chsq.t> Xsq$residuals  # Pearson residuals
+      party
+gender   Democrat Independent Republican
+     M  2.1988558   0.4113702 -2.8432397
+     F -2.5046695  -0.4685829  3.2386734
+
+chsq.t> Xsq$stdres     # standardized residuals
+      party
+gender   Democrat Independent Republican
+     M  4.5020535   0.6994517 -5.3159455
+     F -4.5020535  -0.6994517  5.3159455
+
+chsq.t> ## Effect of simulating p-values
+chsq.t> x <- matrix(c(12, 5, 7, 7), ncol = 2)
+
+chsq.t> chisq.test(x)$p.value           # 0.4233
+[1] 0.4233054
+
+chsq.t> chisq.test(x, simulate.p.value = TRUE, B = 10000)$p.value
+[1] 0.289971
+
+chsq.t>                                 # around 0.29!
+chsq.t> 
+chsq.t> ## Testing for population probabilities
+chsq.t> ## Case A. Tabulated data
+chsq.t> x <- c(A = 20, B = 15, C = 25)
+
+chsq.t> chisq.test(x)
+
+        Chi-squared test for given probabilities
+
+data:  x
+X-squared = 2.5, df = 2, p-value = 0.2865
+
+
+chsq.t> chisq.test(as.table(x))             # the same
+
+        Chi-squared test for given probabilities
+
+data:  as.table(x)
+X-squared = 2.5, df = 2, p-value = 0.2865
+
+
+chsq.t> x <- c(89,37,30,28,2)
+
+chsq.t> p <- c(40,20,20,15,5)
+
+chsq.t> try(
+chsq.t+ chisq.test(x, p = p)                # gives an error
+chsq.t+ )
+Error in chisq.test(x, p = p) : probabilities must sum to 1.
+
+chsq.t> chisq.test(x, p = p, rescale.p = TRUE)
+
+        Chi-squared test for given probabilities
+
+data:  x
+X-squared = 9.9901, df = 4, p-value = 0.04059
+
+
+chsq.t>                                 # works
+chsq.t> p <- c(0.40,0.20,0.20,0.19,0.01)
+
+chsq.t>                                 # Expected count in category 5
+chsq.t>                                 # is 1.86 < 5 ==> chi square approx.
+chsq.t> chisq.test(x, p = p)            #               maybe doubtful, but is ok!
+
+        Chi-squared test for given probabilities
+
+data:  x
+X-squared = 5.7947, df = 4, p-value = 0.215
+
+
+chsq.t> chisq.test(x, p = p, simulate.p.value = TRUE)
+
+        Chi-squared test for given probabilities with simulated p-value (based
+        on 2000 replicates)
+
+data:  x
+X-squared = 5.7947, df = NA, p-value = 0.2104
+
+
+chsq.t> ## Case B. Raw data
+chsq.t> x <- trunc(5 * runif(100))
+
+chsq.t> chisq.test(table(x))            # NOT 'chisq.test(x)'!
+
+        Chi-squared test for given probabilities
+
+data:  table(x)
+X-squared = 5, df = 4, p-value = 0.2873
+
+Warning message:
+In chisq.test(x, p = p) : Chi-squared approximation may be incorrect
+> # ANSWER: df = 4
+> history()
+> 

@@ -1,0 +1,8 @@
+data()
+CO2[]
+?CO2
+??"tabulation"
+table(CO2[1:84,1])
+table(CO2[1:7, 1])
+save.image("E:\\R Class\\Lecture 1\\Homework 3.2 workspace")
+save.history("E:\\R Class\\Lecture 1\\Homework 3.2 history")

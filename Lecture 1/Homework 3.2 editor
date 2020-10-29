@@ -1,0 +1,15 @@
+### HOMEWORK 3.2.
+
+# Find the dataset for CO2. Read the documentation. Using this data, create
+# a crosstabulation (conditional frequency table) of plant by plant type.
+# Note, you will have to use a function we have not demonstrated, but a function
+# you saw in Demonstration 3.3.
+# Last, single out the frequency of the Qn1 plants from Quebec.
+# What is the count?
+
+data()
+CO2[]
+?CO2
+??"tabulation"
+table(CO2[1:84,1])
+table(CO2[1:7, 1])

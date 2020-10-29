@@ -1,0 +1,8 @@
+library()
+library(help="stats")
+library(stats)
+?"chisq.test"
+example("chisq.test")
+# ANSWER: df = 4
+history()
+
